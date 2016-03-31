@@ -242,14 +242,20 @@ $64*1000/8 = 8KB$, a saving of over 95\%.
 
 \section{Results}
 \label{sec:eval}
-
-We now evaluate the results of our approach on a dataset of 150 documents. 
+we choose a real cloud environment. Google cloud ecosystem, to demonstrated the
+viability of our proposed scheme. We implement an indexer, a searching and a
+client application as standard java services. Searching application is deployed
+on Google App Engine configured as F4 class instance with a 2.4 GHz CPU and 512
+MB of RAM. We utilized Google Blobstore for hosting of index files. We preferred
+Blobstore over datastore as datastore has certain limitations like it’s one
+entity can hold only few bytes of data and with the increase index entries it’s
+read/write operations can be more costly while in Blobstore we can store our complete index file and can access it in searching application so it provides more scalability.
+We evaluate the results of our approach on a dataset of 150 documents. 
 These documents range in size from 5 MB to 100 MB, containing from 5000 to
 129,000 keywords. The keywords were chosen to be at least 8 characters in
 length and Porter stemming~\cite{porter} was applied to those keywords.
 The client was a Lenovo Thinkpad 430 with a 2.6 GHz Intel Core(TM) i5-332M
-CPU and 8 GB of RAM. The server was a Google App Engine B4 class instance
-with a 2.4 GHz CPU and 512 MB of RAM.
+CPU and 8 GB of RAM.
 
 \subsection{Indexing Performance}
 Figure \ref{fig:Index-Generation-Time} shows execution time for the index creation
