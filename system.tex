@@ -155,7 +155,7 @@ bloom filters are encrypted, simple matching is not possible. Furthermore, encry
 same plaintext repeatedly results in completely different ciphertexts, which improves
 privacy and security but makes matching difficult.
 
-Fortunately, homomorphic encryption provides a way to perform mathematical operations 
+Homomorphic encryption provides a way to perform mathematical operations 
 over ciphertext. Since our bloom filter entries are encrypted using Pascal Paillier homomorphic
 encryption, we can just multiply their ciphertexts, which when decrypted, would yield the sum of
 the plaintexts~\cite{pascal}. The sum of the bits will be either $0$,$1$ or $2$ after decryption.
