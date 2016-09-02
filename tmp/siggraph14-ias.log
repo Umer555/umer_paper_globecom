@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.8.21)  29 AUG 2016 01:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.8.21)  2 SEP 2016 17:55
 entering extended mode
 **./siggraph14-ias.tex
 (siggraph14-ias.tex
@@ -404,70 +404,57 @@ LaTeX Font Info:    Calculating math sizes for size <11> on input line 63.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[2] [3] [4]
+[2] [3]) (security.tex [4]
+Missing character: There is no ’ in font ptmr7t!
+Missing character: There is no ’ in font ptmr7t!
+Missing character: There is no ’ in font ptmr7t!
+Missing character: There is no ’ in font ptmr7t!
+Missing character: There is no ’ in font ptmr7t!
+Missing character: There is no ’ in font ptmri7t!
+Missing character: There is no ’ in font ptmr7t!
+Missing character: There is no ’ in font ptmr7t!
+) (evaluation.tex
 <figures/indexing_encryption_time.png, id=28, 632.1216pt x 355.5684pt>
 File: figures/indexing_encryption_time.png Graphic file (type png)
 
 <use figures/indexing_encryption_time.png>
 Package pdftex.def Info: figures/indexing_encryption_time.png used on input lin
-e 275.
+e 31.
 (pdftex.def)             Requested size: 252.94499pt x 142.27908pt.
 
-Overfull \hbox (0.94499pt too wide) in paragraph at lines 275--276
+Overfull \hbox (0.94499pt too wide) in paragraph at lines 31--32
  [][][] 
  []
 
-<figures/index_time_graph.png, id=30, 620.5584pt x 363.2772pt>
-File: figures/index_time_graph.png Graphic file (type png)
-
-<use figures/index_time_graph.png>
-Package pdftex.def Info: figures/index_time_graph.png used on input line 289.
-(pdftex.def)             Requested size: 216.81pt x 126.92165pt.
-
-<figures/paillier_index_size_graph.png, id=31, 1027.84pt x 770.88pt>
-File: figures/paillier_index_size_graph.png Graphic file (type png)
-
-<use figures/paillier_index_size_graph.png>
-Package pdftex.def Info: figures/paillier_index_size_graph.png used on input li
-ne 301.
-(pdftex.def)             Requested size: 216.81pt x 162.6071pt.
-
-<figures/comp_compare.png, id=32, 1027.84pt x 770.88pt>
+<figures/comp_compare.png, id=30, 1027.84pt x 770.88pt>
 File: figures/comp_compare.png Graphic file (type png)
 
 <use figures/comp_compare.png>
-Package pdftex.def Info: figures/comp_compare.png used on input line 318.
+Package pdftex.def Info: figures/comp_compare.png used on input line 56.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
 
-Overfull \hbox (0.94499pt too wide) in paragraph at lines 318--319
+Overfull \hbox (0.94499pt too wide) in paragraph at lines 56--57
  [][][] 
  []
 
-[5 <./figures/indexing_encryption_time.png> <./figures/index_time_graph.png> <.
-/figures/paillier_index_size_graph.png> <./figures/comp_compare.png>]
-<figures/cost_keywords_graph.png, id=40, 656.6934pt x 397.485pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5 <./figures/indexing_encryption_time.png>]
+<figures/cost_keywords_graph.png, id=35, 656.6934pt x 397.485pt>
 File: figures/cost_keywords_graph.png Graphic file (type png)
 
 <use figures/cost_keywords_graph.png>
-Package pdftex.def Info: figures/cost_keywords_graph.png used on input line 374
+Package pdftex.def Info: figures/cost_keywords_graph.png used on input line 112
 .
 (pdftex.def)             Requested size: 260.17244pt x 157.4749pt.
 
-Overfull \hbox (8.17244pt too wide) in paragraph at lines 374--375
+Overfull \hbox (8.17244pt too wide) in paragraph at lines 112--113
  [][][] 
  []
 
-) (security.tex
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-Missing character: There is no ’ in font ptmr7t!
-) (discussion.tex [6 <./figures/cost_keywords_graph.png>])
-(siggraph14-ias.bbl)
+) (discussion.tex) (siggraph14-ias.bbl [6 <./figures/comp_compare.png> <./figur
+es/cost_keywords_graph.png>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -479,16 +466,18 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7] (siggraph14-ias.aux) )
+[7
+
+] (siggraph14-ias.aux) )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 4456 strings out of 493335
- 68586 string characters out of 3137138
- 154104 words of memory out of 3000000
- 7897 multiletter control sequences out of 15000+200000
+ 4447 strings out of 493335
+ 68227 string characters out of 3137138
+ 154088 words of memory out of 3000000
+ 7887 multiletter control sequences out of 15000+200000
  43416 words of font info for 85 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,17n,33p,297b,2045s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -506,9 +495,9 @@ ll/fonts/type1/public/amsfonts/cm/cmsy8.pfb><E:/New folder/stu/texmfs/install/f
 onts/type1/urw/times/utmb8a.pfb><E:/New folder/stu/texmfs/install/fonts/type1/u
 rw/times/utmbi8a.pfb><E:/New folder/stu/texmfs/install/fonts/type1/urw/times/ut
 mr8a.pfb><E:/New folder/stu/texmfs/install/fonts/type1/urw/times/utmri8a.pfb>
-Output written on siggraph14-ias.pdf (7 pages, 559333 bytes).
+Output written on siggraph14-ias.pdf (7 pages, 433925 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
+ 90 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

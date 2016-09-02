@@ -90,6 +90,11 @@ Stephen Tu, M~Frans Kaashoek, Samuel Madden, and Nickolai Zeldovich,
 \newblock in {\em Proceedings of the VLDB Endowment}. VLDB Endowment, 2013,
   vol.~6.
 
+\bibitem{pascal_AHE}
+Wikipedia,
+\newblock ``{Homomorphic properties of Pascal Paillier},''
+  \url{https://en.wikipedia.org/wiki/Paillier_cryptosystem#Homomorphic_properties}.
+
 \bibitem{porter}
 Martin Porter,
 \newblock ``{The Porter Stemming Algorithm},''
@@ -99,11 +104,6 @@ Martin Porter,
 Google Inc.,
 \newblock ``{Google Cloud Platform: Reading and Writing Application Logs},''
   \url{https://cloud.google.com/appengine/docs/python/logs/#understanding_request_log_fields}.
-
-\bibitem{pascal_AHE}
-Wikipedia,
-\newblock ``{Homomorphic properties of Pascal Paillier},''
-  \url{https://en.wikipedia.org/wiki/Paillier_cryptosystem#Homomorphic_properties}.
 
 \bibitem{hadoop}
 Tom White,
