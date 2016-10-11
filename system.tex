@@ -1,7 +1,7 @@
 \section{Proposed System}
 \label{sec:system}
 
-\begin{table*}[h!]
+\begin{table*}[!htbp]
 \caption{ Notations used in mathematical and descriptive details  }
 \label{tab:notations}
 \begin{center}\begin{tabular}{{ |l |l |l }}
@@ -29,7 +29,9 @@ of list of keywords from data \\\hline
 \\\hline
 \vspace*{\fill} \centering$\mathcal{M}_q$ & Uncompressed resultant term after bloom filter matching
 \\\hline
-\vspace*{\fill} \centering $\mathcal{O}_b$ & Number of 1ns in a bloom filter
+\vspace*{\fill} \centering$\mathcal{BF}_i$ & i'th encrypted bit of bloom filter $\mathcal{BF}$
+\\\hline
+\vspace*{\fill} \centering $\mathcal{O}_b$ & Number of 1 bits in a bloom filter
 \\\hline
 \end{tabular}
 \end{center}
@@ -85,7 +87,7 @@ homomorphic encryption algorithm~\cite{pascal}.
 The sliding window bloom filter (SWBF) is a special type of bloom filter
 for which a window size is defined, and based on that
 window size, a keyword is mapped to the bloom filter. For example, suppose we have a word
-\emph{cloud} and \emph {window size = 2}. Now \emph{cloud} will be sliced into
+\emph{cloud} and a window size of 2. Now \emph{cloud} will be sliced into
 \emph{cl}, \emph{lo}, \emph{ou}, and \emph{ud} and each of these slices will be 
 independently mapped to the bloom filter. This filter enables us to achieve
  a high matching score even if the requested keyword does not match completely.
@@ -99,24 +101,25 @@ $ \forall \mathcal{F}_i \in \langle \mathcal{F}_1, \mathcal{F}_2, \ldots,
 \mathcal{F}_n \rangle$\;
 \While{$\mathcal{F}_i \in  C $}{
   $\mathcal{K}\omega \gets extractAllKeywords (\mathcal{F}_i)$\;
-  $\forall k\omega_i \in \mathcal{K}\omega $\;
-          \While{$k\omega_i \in \mathcal{K}\omega$}{
-            $SBF \gets createSWBF (k\omega_i)$\;
-            $f_i \gets getKeywordFrequency (k\omega_i) $\;
-                $\mathcal{O}_b \gets getOnes (\mathcal{BF}_i) $\;
-            $\forall bf_i \in SBF $\;
-                \While{$bf_i \in SBF$}{
-                        $\mathcal{BF}_i \gets \mathcal{E}_h (\sigma_{pk}, bf_i) $\;
-                        $IndexEntry \gets IndexEntry,\mathcal{BF}_i $\;
-                        $bf_i \gets getNextBit (SBF) $\;
+  $\forall k\omega_j \in \mathcal{K}\omega $\;
+          \While{$k\omega_j \in \mathcal{K}\omega$}{
+            $SBF \gets createSWBF (k\omega_j)$\;
+            $f_j \gets getKeywordFrequency (k\omega_j) $\;
+                $\mathcal{O}_b \gets getOnes (\mathcal{BF}_j) $\;
+            $\forall bf_k \in SBF $\;
+                \While{$bf_k \in SBF$}{
+                        $\mathcal{BF}_k \gets \mathcal{E}_h (\sigma_{pk}, bf_k) $\;
+                        $IndexEntry \gets IndexEntry,\mathcal{BF}_k $\;
+                        $bf_k \gets getNextBit (SBF) $\;
                 }
-                $IndexEntry \gets IndexEntry,f_i, \mathcal{O}_b $\;
-                $\mathcal{I}_i \gets writeToIndexFile (IndexEntry) $\;
-                $k\omega_i \gets getNextKeyword (\mathcal{K}) $\;
+                $IndexEntry \gets IndexEntry,f_j, \mathcal{O}_b $\;
+                $\mathcal{I}_j \gets writeToIndexFile (IndexEntry) $\;
+                $\mathcal{I} \gets \mathcal{I}, \mathcal{I}_j $\;
+                $k\omega_j \gets getNextKeyword (\mathcal{K}) $\;
           }
   $\mathcal{F}_i \gets getNextFile (C) $\;
 }
-\Return{$\mathcal{I}_i$}\;
+\Return{$\mathcal{I}$}\;
  \caption{Index Creation}
  \label{algo:IndexCreation}
 \end{algorithm}
@@ -176,7 +179,7 @@ is used by many existing systems (for example, in ~\cite{zeehan}), it is extreme
 inefficient.
 In particular, if there are many documents and keywords in the cloud dataset, this
 will result in a huge amount of data to be communicated back to the user. In quantitative terms,
-the summed index entry for \textit{all} keywords in the dataset will be returned
+the summed index entry for \textit{every} keyword in the dataset will be returned
 to the client. This will not only increase the response time over the network, but
 also the cost of cloud computing for the data owner, since network usage is billed
 by most cloud service providers.
@@ -204,7 +207,7 @@ to client application:
 \end{equation}
 
 From Eq.\ref{eq:compressed} we get a single compressed term $\mathcal{R}_q$ whose size is
-the size of the Pascal Paillier key size. 
+the size of the Pascal Paillier key. 
 This multiplication by constants and addition is again possible 
 because our bloom filter entries are encrypted using Pascal Paillier homomorphic
 encryption. Therefore, if after decryption, we want the product of the plaintext with a constant, we
@@ -220,13 +223,13 @@ that taking $log_{a} \mathcal{R}_q$ repeatedly will yield the position of the ne
 bloom filter entry that needs to be incremented.
 
 \begin{algorithm}
-\KwIn{A compressed index entry $\mathcal{R}_q$}
+\KwIn{The compressed index sum $\mathcal{R}_q$}
 \KwOut{Matched result $\mathcal{M}_q$ comprising a sequence of 0s, 1s and 2s}
-$ b \gets 3 $ \;
+$ a \gets 3 $ \;
 $i \gets 0 $\;
 \While{$\mathcal{R}_q > 0$}{
-  $i \gets \log_b \mathcal{R}_q$ \;
-  $\mathcal{R}_q \gets \mathcal{R}_q - b^{i}$ \;
+  $i \gets \log_a \mathcal{R}_q$ \;
+  $\mathcal{R}_q \gets \mathcal{R}_q - a^{i}$ \;
   $\mathcal{M}_q [i] \gets \mathcal{M}_q [i] + 1 $ \;
 }\Return{$\mathcal{M}_q$}\;
  \caption{Index entry decompression}

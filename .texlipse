@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Tue Oct 11 09:21:17 PKT 2016
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=siggraph14-ias.tex
+outputFile=ieee_icc_umer.pdf
+langSpell=en
+markDer=true
+srcDir=

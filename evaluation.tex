@@ -39,7 +39,7 @@ index entry increases. The indexing time also increases, mainly because it takes
 to upload a larger bloom filter to the cloud. 
 A larger Paillier key size can help strengthen system security. However, with
 increasing Paillier key size, index file size also increases proportionally and
-out experiments shows that index size increases linearly with Paillier key size.
+our experiments show that index size increases linearly with Paillier key size.
 
 \subsection{Search Performance}
 
@@ -68,7 +68,7 @@ has its own bloom filter index associated with it.
 
 \begin{table}[th!]
 \centering
-\caption{Response time increases almost linearly with keyword count.}
+\caption{Response time increases linearly with keyword count.}
 \label{tab:search_response_time}
 \begin{tabular}{| c | c | }
 \hline
@@ -89,10 +89,11 @@ Keyword Count & Response Extraction Time (ms) \\
 
 \subsection{Cost Estimation and Response Times}
 
-Finally, we evaluate the cost(\$) that CSP will charge to data owners for search
+Finally, we evaluate the dollar cost that CSP will charge to data owners for search
 queries with partial matching. 
 Our results, shown in Figure \ref{fig:cost_single_query}, demonstrate that a query
-searching for a single keyword in a dataset having 500-3500 index entries will cost only \$0.000002 to \$0.00002 per 1000 similar
+searching for a single keyword in a dataset having 500-3500 index entries will cost only 
+\$0.000002 to \$0.00002 per 1000 similar
 queries. Due to the sliding window bloom filter approach, 
 all of the metrics increase only linearly ($O(n)$) with the number
 of keywords on the server. This is substantially better than using a naive algorithm 

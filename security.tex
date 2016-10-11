@@ -2,55 +2,42 @@
 \label{sec:security}
 
 For detailed security analysis of our scheme, let suppose that Alice is the
-owner of a small enterprise named Digitals. Alice wants to outsource her
-employees related confidential data files $\mathcal{F} = \langle \mathcal{F}_1,
-\mathcal{F}_2, \ldots, \mathcal{F}_n \rangle$ to the cloud server,
-owned by Eve, in text format meanwhile she also wants to allow searching on the outsourced data
-to his employee Bob, the HR manager of Digitals. Eve being a non-trusted third
-party, Alice ensures privacy and confidentiality of $\mathcal{F}$ by
+owner of a small enterprise named Digitals. Alice wants to outsource confidential data files $\mathcal{F} = \langle \mathcal{F}_1,
+\mathcal{F}_2, \ldots, \mathcal{F}_n \rangle$ to a cloud server, owned by Eve - an untrusted third party providing public cloud services. 
+Alice also wants Bob, HR manager at Digitals, to search the outsourced data using arbitrary search queries. 
+Alice ensures privacy and confidentiality of $\mathcal{F}$ by
 first encrypting $\mathcal{F}$ and corresponding index files $\mathcal{I}
 = \langle \mathcal{I}_1, \mathcal{I}_2, \ldots, \mathcal{I}_n \rangle$ with
-$\sigma_{pk}$ and then outsource them to Eve.
+$\sigma_{pk}$ and then outsourcing them to Eve.
 
-\subsection{Man in the middle attack}
+\subsection{Man-in-the-middle-attack}
 
-Let a malicious user $M$ intercepts a user query $Q$. $M$ cannot learn about $Q$
-as he does not have $\sigma_{sk}$ so $Q$ is secure. But $M$ can manipulate $Q$ to
-produce $\acute{Q}$. $M$ can replace $k\omega$ in $Q$ with his own
-$\acute{k}\omega$ encrypted with $\sigma_{pk}$. Eve won't notice if the query is been altered in
-the midaway or not. Eve will evaulate the query and sends $\mathcal{R}_q$ to the user.
-User will also won't notice that $\mathcal{R}_q$ is the outcome of an altered query.
-User may notice unwanted information in the result but won't notice the
-missing records due to replacement of his keyword by $M$.
+Suppose a malicious user $M$ intercepts a user query $Q$. Since $Q$ is encrypted with $\sigma_{sk}$, $M$ cannot learn any useful information by simply intercepting the search request. 
+However, $M$ can manipulate $Q$ to produce $\acute{Q}$ by replacing $k\omega$ in $Q$ with his own $\acute{k}\omega$ encrypted with $\sigma_{pk}$. 
+Eve cannot identify if the query is been altered during transmission. Eve will evaluate $\acute{Q}$ and sends $\mathcal{R}_q$ to the user.
+Similar to Eve, user will not notice that $\mathcal{R}_q$ is the outcome of an altered query. %User may notice unwanted information in the result but won't notice the missing records due to replacement of his keyword by $M$.
+However, homomorphic encryption will restrain $M$ from compromising privacy of the query $Q$. For a successful man-in-the-middle-attack, $M$ would need $\sigma_{sk}$ which is only accessible to Alice. Thus, confidentiality and privacy of $Q$, $F$ and $I$ remain intact in this and subsequent attack scenarios. 
 
-\subsection{Malicious Eve}
+\subsection{Malicious cloud service provider}
+Suppose Eve has malicious intentions and wants to know about $\mathcal{I}$ and
+user queries. As Eve does not have $\sigma_{sk}$, she cannot decrypt $\mathcal{I}$. 
+Also, all comparisons between the bloom filter of the user
+query and $\mathcal{I}$ are being done using the homomorphic properties of the Pascal 
+Paillier~\cite{pascal} algorithm, so Eve can neither determine the outcome of the
+comparisons, nor can she determine any search pattern for subsequent queries from different users.
+This means that $\mathcal{F}$ and $\mathcal{I}$ are also secured against any insider attacks. 
+A malicious employee would need $\mathcal{K}_S$ and $\sigma_{sk}$ to decipher $\mathcal{F}$ and $\mathcal{I}$.  
 
-Let Eve has malicious intentions and wants to know about $\mathcal{I}$ and
-user queries. As Eve won’t have $\sigma_{sk}$ so he cannot decrypt $\mathcal{I}$
-thus cannot learn anything. Also, all the comparisons between bloom filter of user
-query and $\mathcal{I}$ are being done by using homomorphic properties
-of Pascal Paillier~\cite{pascal_AHE} so Eve cannot determine the outcome of the
-comparisons. Neither he could determine any search pattern for subsequent queries from different users.
+\subsection{Malicious user and cloud service provider}
+Suppose a malicious user $M$ having some background information of Digitals teams up with Eve to 
+try and compromise confidentiality and privacy of $Q$, $F$ and $I$. To successfully infer any information from the outsourced data or search query they would need $\mathcal{K}_S$ and $\sigma_{sk}$. Since, these key are with Alice, both $E$ and Eve are restrained in their collective effort and cannot learn any useful information from the encrypted outsourced data. 
+%They
+%both cannot learn anything about the user query and the indexes. Malicious user cannot decrypt the user query and Eve cannot know the comparisons output.
 
-\subsection{Insider Attack}
-
-Alice’s $\mathcal{F}$ and $\mathcal{I}$ will be secured against Insider attacks as
-well. If some malicious employee $E$, who has access to Eve’s data centers,
-stole Eve’s data then $E$ won’t be able to access any useful information of Digitals
-employees as without $\sigma_{sk}$ indexes cannot be decrypted.
-
-\subsection{Malicious user M and Eve teamed up}
-
-Let malicious user $M$ having some background information of Digitals teamed up
-with Eve to find out confidential information about Digitals employees. They
-both cannot learn anything about the user query and the indexes on the cloud.
-Malicious user cannot decrypt the user query and Eve cannot know the comparisons
-output.
-
-\subsection{Malicious user’s random query}
-
-Let malicious user $M$ having $\sigma_{pk}$, creates a semantically correct query
-and sends to Eve for evaluation. Eve will perform comparisons and will return
-$\mathcal{R}_q$ but $M$ won’t be able to determine $\mathcal{M}_q$ as he does not
-have the $\sigma_{sk}$ to decrypt $\mathcal{R}_q$ returned by Eve. He will
-receive $\mathcal{R}_q$ but he won’t be able to learn any information out of it.
+%\subsection{Malicious user’s random query}
+%
+%Let malicious user $M$ having $\sigma_{pk}$, creates a semantically correct query
+%and sends to Eve for evaluation. Eve will perform comparisons and will return
+%$\mathcal{R}_q$ but $M$ won’t be able to determine $\mathcal{M}_q$ as he does not
+%have the $\sigma_{sk}$ to decrypt $\mathcal{R}_q$ returned by Eve. He will
+%receive $\mathcal{R}_q$ but he won’t be able to learn any information out of it.
