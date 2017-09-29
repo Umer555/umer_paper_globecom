@@ -5,45 +5,45 @@ The style file: IEEEbib.bst
 Database file #1: ias.bib
 Warning--empty year in song
 Warning--can't use both volume and number fields in tu2013processing
-You've used 14 entries,
+You've used 13 entries,
             1838 wiz_defined-function locations,
-            665 strings with 8040 characters,
-and the built_in function-call counts, 3374 in all, are:
-= -- 291
-> -- 152
+            661 strings with 7898 characters,
+and the built_in function-call counts, 3168 in all, are:
+= -- 279
+> -- 138
 < -- 5
-+ -- 56
-- -- 42
-* -- 230
-:= -- 512
-add.period$ -- 21
-call.type$ -- 14
-change.case$ -- 14
++ -- 51
+- -- 38
+* -- 216
+:= -- 479
+add.period$ -- 20
+call.type$ -- 13
+change.case$ -- 13
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 175
-empty$ -- 364
-format.name$ -- 42
-if$ -- 794
+cite$ -- 15
+duplicate$ -- 163
+empty$ -- 339
+format.name$ -- 38
+if$ -- 747
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 13
-newline$ -- 72
-num.names$ -- 14
-pop$ -- 73
+int.to.str$ -- 13
+missing$ -- 12
+newline$ -- 67
+num.names$ -- 13
+pop$ -- 66
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 71
+skip$ -- 68
 stack$ -- 0
 substring$ -- 130
-swap$ -- 54
+swap$ -- 52
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 26
-width$ -- 16
-write$ -- 155
+while$ -- 25
+width$ -- 15
+write$ -- 145
 (There were 2 warnings)

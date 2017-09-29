@@ -8,7 +8,7 @@ possible. Second, if you provide the CSP the decryption keys,
 you cannot prevent the CSP from accessing the confidential 
 data.
 Recent work has focused on solving these problems using a variety of techniques,
-broadly classified into two categories.
+which we broadly classify into two categories.
 
 \textbf{Using Trapdoor Encryption.}
 Song et al. \cite{song} propose a symmetric key based
@@ -22,10 +22,6 @@ in the cloud.
 To search, a user computes the trapdoor for a keyword and sends it to the cloud
 server. The cloud server checks the trapdoor in the bloom filter, and if
 it exists, returns the corresponding file identifier. 
-Waters et al. \cite{waters2004building} extend the work of Song et al. and propose a similar
-technique to secure audit logs. 
-When it needs to be searched, a trusted third party issues a trapdoor
-for a specific keyword search. 
 Boneh et al \cite{boneh}
 present one of the earliest public key based encrypted search algorithm, 
 enabling 
@@ -60,7 +56,6 @@ order to manipulate the index, so a lot of computation is done due to index
 transformations. They use a trusted third party to rank search results and model queries.
 While this approach avoids using trapdoors, it still supports only
 exact keyword matching and has high communication cost.
-
 Finally, CryptDB~\cite{popa2011cryptdb} and MONOMI~\cite{tu2013processing} improve the performance of searching over encrypted data 
 by employing customized forms of encryption for specific kinds of data.
 However, in doing so, they are vulnerable to several kinds of information 

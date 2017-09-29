@@ -30,11 +30,6 @@ Zeeshan Pervez, Ammar~Ahmad Awan, Asad~Masood Khattak, Sungyoung Lee, and
 \newblock {\em The Journal of Supercomputing}, vol. 63, no. 2, pp. 538--560,
   2013.
 
-\bibitem{waters2004building}
-Brent~R Waters, Dirk Balfanz, Glenn Durfee, and Diana~K Smetters,
-\newblock ``Building an encrypted and searchable audit log.,''
-\newblock in {\em NDSS}, 2004.
-
 \bibitem{li}
 Shucheng Yu, Cong Wang, Kui Ren, and Wenjing Lou,
 \newblock ``Achieving secure, scalable, and fine-grained data access control in
