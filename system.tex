@@ -3,39 +3,6 @@
 
 
 
-\begin{table}
-\caption{ Notations used in mathematical and descriptive details  }
-\vspace{-15px}
-\label{tab:notations}
-\begin{center}\begin{tabular}{{ |l |l |l }}
-    \hline
-    Notation & Description\\
-    \hline\hline
-\vspace*{\fill}\centering $\mathcal{F}$ & Confidential file that needs to
-     be outsourced \\\hline
-\vspace*{\fill} \centering $\mathcal{K}\omega$ & List of keywords in a data file
-$\mathcal{F}$ \\\hline \vspace*{\fill} \centering $f\omega$ & Frequency of a keyword $k\omega$ \\\hline
-\vspace*{\fill} \centering $\mathcal{L}$ & \specialcell{Allowed keyword length for extraction
-of list of keywords \\ from data} \\\hline
-\vspace*{\fill} \centering $\mathcal{I}$ & \specialcell{Index file having encrypted bloom filter for each keyword, \\ frequency and number of 1s as index entries} \\\hline
-\vspace*{\fill} \centering $\mathcal{E}_h$ , $\mathcal{D}_h$
-     & Homomorphic encryption and decryption functions \\\hline
-\vspace*{\fill} \centering$\mathcal{E}_S$ , $\mathcal{D}_S$ & Symmetric
-    encryption and decryption functions \\\hline
-\vspace*{\fill} \centering $\sigma_{pk}$ , $\sigma_{sk}$ & Homomorphic
-    encryption public and private keys \\\hline
-\vspace*{\fill} \centering$\mathcal{R}_q$ & Compressed resultant term after bloom filter matching
-\\\hline
-\vspace*{\fill} \centering$\mathcal{M}_q$ & Uncompressed resultant term after bloom filter matching
-\\\hline
-\vspace*{\fill} \centering$\mathcal{BF}_i$ & i'th encrypted bit of bloom filter $\mathcal{BF}$
-\\\hline
-\vspace*{\fill} \centering $\mathcal{O}_b$ & Number of 1 bits in a bloom filter
-\\\hline
-\end{tabular}
-\end{center}
-
-\end{table}
 
 
 We first discuss some of our assumptions
@@ -68,6 +35,39 @@ so it is neither able to learn anything about the matched results, nor
 can it relate any subsequent queries from other users. 
 
 \subsection{Assumptions and Notations}
+
+\begin{table}
+\caption{ Notations used in mathematical and descriptive details  }
+\vspace{-13px}
+\label{tab:notations}
+\begin{center}\begin{tabular}{{ |l |l |l }}
+    \hline
+    Notation & Description\\
+    \hline\hline
+\vspace*{\fill}\centering $\mathcal{F}$ & Confidential file that needs to
+     be outsourced \\\hline
+\vspace*{\fill} \centering $\mathcal{K}\omega$ & List of keywords in a data file
+$\mathcal{F}$ \\\hline \vspace*{\fill} \centering $f\omega$ & Frequency of a keyword $k\omega$ \\\hline
+\vspace*{\fill} \centering $\mathcal{E}_h$ , $\mathcal{D}_h$
+     & Homomorphic encryption and decryption functions \\\hline
+\vspace*{\fill} \centering$\mathcal{E}_S$ , $\mathcal{D}_S$ & Symmetric
+    encryption and decryption functions \\\hline
+\vspace*{\fill} \centering $\sigma_{pk}$ , $\sigma_{sk}$ & Homomorphic
+    encryption public and private keys \\\hline
+\vspace*{\fill} \centering$\mathcal{R}_q$ & Compressed resultant term after bloom filter matching
+\\\hline
+\vspace*{\fill} \centering$\mathcal{M}_q$ & Uncompressed resultant term after bloom filter matching
+\\\hline
+\vspace*{\fill} \centering$\mathcal{BF}_i$ & i'th encrypted bit of bloom filter $\mathcal{BF}$
+\\\hline
+\vspace*{\fill} \centering $\mathcal{O}_b$ & Number of 1 bits in a bloom filter
+\\\hline
+\vspace*{\fill} \centering $\mathcal{I}$ & \specialcell{Index file containing encrypted bloom filter for each\\keyword, frequency and number of 1s as index entries} \\\hline
+\end{tabular}
+\end{center}
+\vspace{-20px}
+\end{table}
+
 
 We ignore the key exchange mechanism between the data owner and the end users, assuming
 that it happens using secure out-of-band channels.
@@ -179,14 +179,14 @@ inefficient.
 In particular, if there are many documents and keywords in the cloud dataset, this
 will result in a huge amount of data to be communicated back to the user. Specifically,
 the product of the query and the encrypted index entry for \textit{every} keyword in the dataset will be returned
-to the client. This will not only increase the response time over the network, but
-also the cost of cloud computing for the data owner, since network usage is billed
-by most cloud service providers.
+to the client. This increases both response time over the network as well as
+the cost of cloud computing for the data owner, since network usage is billed
+by most CSPs.
 
-In order to reduce this communication cost overhead, we devise a method by which
-we are able to reduce this cost by over $95\%$. Based on the insight that each returned
-index entry consists only of $0$s, $1$s or $2$s, we
-define a polynomial $\mathcal{P}$ given by:
+Our technique to reduce this communication cost overhead is based on the insight that each returned
+index entry consists only of $0$s, $1$s or $2$s after decryption. We exploit this
+property by 
+defining a polynomial $\mathcal{P}$ such that:
 
 $
 \mathcal{P} = {a}^0\cdot\mathcal{BF}_1 + {a}^1\cdot\mathcal{BF}_2 +
@@ -222,11 +222,10 @@ bloom filter entry that needs to be incremented.
 \begin{algorithm}
 \KwIn{The compressed index sum $\mathcal{R}_q$}
 \KwOut{Matched result $\mathcal{M}_q$ comprising a sequence of 0s, 1s and 2s}
-$ a \gets 3 $ \;
-$i \gets 0 $\;
+ $i \gets 0 $\;
 \While{$\mathcal{R}_q > 0$}{
-  $i \gets \log_a \mathcal{R}_q$ \;
-  $\mathcal{R}_q \gets \mathcal{R}_q - a^{i}$ \;
+  $i \gets \log_3 \mathcal{R}_q$ \;
+  $\mathcal{R}_q \gets \mathcal{R}_q - 3^{i}$ \;
   $\mathcal{M}_q [i] \gets \mathcal{M}_q [i] + 1 $ \;
 }\Return{$\mathcal{M}_q$}\;
  \caption{Index entry decompression}
@@ -236,10 +235,10 @@ $i \gets 0 $\;
 \end{algorithm}
 
 
-The savings achieved using this algorithm can be evaluated using a simple theoretical
-formulation. Suppose we use a 32-bit bloom filter and a 64-bit Pascal Paillier key.
+The savings achieved using this algorithm can be evaluated using a simple example.
+Suppose we use a 32-bit bloom filter and a 64-bit Pascal Paillier key.
 Then for 1000 keywords, the data owner will create an index file with 1000 entries.
-Then the size of the index file will be 32*64*1000/8 = 256KB. On the other hand,
+The size of the index file will then be 32*64*1000/8=256KB. On the other hand,
 after compression, the number returned per keyword will just have a size equal to the
 size of the Paillier key, namely 64 bits. So the total data returned will be 
-64*1000/8 = 8KB, a saving of over 95\%.
+64*1000/8=8KB, a saving of over 95\%.

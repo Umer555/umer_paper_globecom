@@ -22,14 +22,6 @@ Craig Gentry et~al.,
 \newblock ``Fully homomorphic encryption using ideal lattices.,''
 \newblock in {\em STOC}, 2009, vol.~9, pp. 169--178.
 
-\bibitem{zeehan}
-Zeeshan Pervez, Ammar~Ahmad Awan, Asad~Masood Khattak, Sungyoung Lee, and
-  Eui-Nam Huh,
-\newblock ``Privacy-aware searching with oblivious term matching for cloud
-  storage,''
-\newblock {\em The Journal of Supercomputing}, vol. 63, no. 2, pp. 538--560,
-  2013.
-
 \bibitem{li}
 Shucheng Yu, Cong Wang, Kui Ren, and Wenjing Lou,
 \newblock ``Achieving secure, scalable, and fine-grained data access control in
@@ -39,13 +31,8 @@ Shucheng Yu, Cong Wang, Kui Ren, and Wenjing Lou,
 \bibitem{saibal}
 Sankar~K Pal, Puneet Sardana, and Ankita Sardana,
 \newblock ``Efficient search on encrypted data using bloom filter,''
-\newblock in {\em Computing for Sustainable Global Development (INDIACom), 2014
-  International Conference on}. IEEE, 2014, pp. 412--416.
-
-\bibitem{odell1918soundex}
-M~Odell and RC~Russell,
-\newblock ``The soundex coding system,''
-\newblock {\em US Patents}, vol. 1261167, 1918.
+\newblock in {\em Computing for Sustainable Global Development, 2014
+  International Conference on}. IEEE, 2014.
 
 \bibitem{mehmat}
 Mehmet Kuzu, Mohammad~Saiful Islam, and Murat Kantarcioglu,
@@ -59,6 +46,14 @@ Pascal Paillier,
   classes,''
 \newblock in {\em 17th international conference on theory and application of
   cryptographic techniques}. Springer, 1999.
+
+\bibitem{zeehan}
+Zeeshan Pervez, Ammar~Ahmad Awan, Asad~Masood Khattak, Sungyoung Lee, and
+  Eui-Nam Huh,
+\newblock ``Privacy-aware searching with oblivious term matching for cloud
+  storage,''
+\newblock {\em The Journal of Supercomputing}, vol. 63, no. 2, pp. 538--560,
+  2013.
 
 \bibitem{popa2011cryptdb}
 Raluca~Ada Popa, Catherine Redfield, Nickolai Zeldovich, and Hari Balakrishnan,
