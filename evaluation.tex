@@ -7,10 +7,9 @@ client application as standard Java services. The search service was deployed
 on Google App Engine configured as an F4 class instance with a 2.4 GHz CPU and 512
 MB of RAM. We utilized Google Blobstore for hosting index files because
 it allows us to store and retrieve the complete index file efficiently.
-This is in contrast to Google Datastore whose
-entities can hold only a few bytes of data. As a result, when index entries increase,
-read/write operations on index entries in the Datastore become more costly.
-
+%This is in contrast to Google Datastore whose
+%entities can hold only a few bytes of data. As a result, when index entries increase,
+%read/write operations on index entries in the Datastore become more costly.
 We evaluate the results of our approach on a dataset of 150 documents. 
 These documents range in size from 5 MB to 100 MB, containing from 5000 to
 129,000 keywords. The keywords were chosen to be at least 8 characters in
@@ -18,28 +17,28 @@ length and Porter stemming~\cite{porter} was applied to those keywords.
 The client was a Lenovo Thinkpad 430 with a 2.6 GHz Intel Core(TM) i5-332M
 CPU and 8 GB of RAM.
 
-\subsection{Indexing Performance}
-Figure \ref{fig:Index-Generation-Time} shows execution time for the index creation
-and encryption 
-processes over different input dataset sizes 
-using a 64-bit Pascal Paillier key and a 3 KB bloom filter. The graph shows that,
-despite using sliding window bloom filters, 
-both encryption and index creation sizes increase linearly with input dataset size.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=3.5in]{figures/indexing_encryption_time.png}
-  \caption{Index Generation Time}
-  \label{fig:Index-Generation-Time}
-\end{figure}
-
-Paillier key size and bloom filter size both have a substantial impact on index file size. 
-With the increase of bloom filter size, the false positive rate decreases but the size of each
-index entry increases. The indexing time also increases, mainly because it takes longer
-to upload a larger bloom filter to the cloud. 
-A larger Paillier key size can help strengthen system security. However, with
-increasing Paillier key size, index file size also increases proportionally and
-our experiments show that index size increases linearly with Paillier key size.
+%\subsection{Indexing Performance}
+%Figure \ref{fig:Index-Generation-Time} shows execution time for the index creation
+%and encryption 
+%processes over different input dataset sizes 
+%using a 64-bit Pascal Paillier key and a 3 KB bloom filter. The graph shows that,
+%despite using sliding window bloom filters, 
+%both encryption and index creation sizes increase linearly with input dataset size.
+%
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[width=3.5in]{figures/indexing_encryption_time.png}
+%  \caption{Index Generation Time}
+%  \label{fig:Index-Generation-Time}
+%\end{figure}
+%
+%Paillier key size and bloom filter size both have a substantial impact on index file size. 
+%With the increase of bloom filter size, the false positive rate decreases but the size of each
+%index entry increases. The indexing time also increases, mainly because it takes longer
+%to upload a larger bloom filter to the cloud. 
+%A larger Paillier key size can help strengthen system security. However, with
+%increasing Paillier key size, index file size also increases proportionally and
+%our experiments show that index size increases linearly with Paillier key size.
 
 \subsection{Search Performance}
 
@@ -53,7 +52,7 @@ of the bloom filter increases. This is shown in Figure \ref{fig:compress}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width= 3.5in]{figures/comp_compare.png}
+  \includegraphics[width=3.3in]{figures/comp_compare.png}
   \caption{Data returned by a search query: compressed vs uncompressed results}
   \label{fig:compress}
 \end{figure}
@@ -82,8 +81,6 @@ Keyword Count & Response Extraction Time (ms) \\
 3000 &  370 \\
 \hline
 \end{tabular}
-
-
 \end{table}
 
 
@@ -105,7 +102,7 @@ decrypted at the cloud or by any other untrusted system.
 
 \begin{figure}
   \centering
-  \includegraphics[width= 3.6in]{figures/cost_keywords_graph.png}
-  \caption{Searching Cost(\$) with Single Keyword Query}
+  \includegraphics[width=3.3in]{figures/cost_keywords_graph.png}
+  \caption{Search Cost(\$) with Single Keyword Query}
   \label{fig:cost_single_query}
 \end{figure}
