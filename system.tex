@@ -2,13 +2,10 @@
 \label{sec:system}
 
 
-
-
-
 We first discuss some of our assumptions
-about the system and the threat model. Then we describe the main
-steps involved in the initial index generation
-and then the actual search process over encrypted data.
+about the system and the threat model. We then go on to describe the
+steps involved in initial index generation
+and the actual search process over encrypted data.
 
 \subsection{System Model}
 
@@ -96,9 +93,7 @@ independently mapped to the bloom filter. This filter enables us to achieve
 \mathcal{F}_n \rangle$}
 \KwOut{Index files $I = \langle \mathcal{I}_1, \mathcal{I}_2, \ldots,
 \mathcal{I}_n \rangle$ for each file in $C$}
-$ \forall \mathcal{F}_i \in \langle \mathcal{F}_1, \mathcal{F}_2, \ldots,
-\mathcal{F}_n \rangle$\;
-\While{$\mathcal{F}_i \in  C $}{
+\ForEach{$\mathcal{F}_i \in  C $}{
   $\mathcal{K}\omega \gets extractAllKeywords (\mathcal{F}_i)$\;
   $\forall k\omega_j \in \mathcal{K}\omega $\;
           \While{$k\omega_j \in \mathcal{K}\omega$}{
@@ -116,7 +111,7 @@ $ \forall \mathcal{F}_i \in \langle \mathcal{F}_1, \mathcal{F}_2, \ldots,
                 $\mathcal{I} \gets \mathcal{I}, \mathcal{I}_j $\;
                 $k\omega_j \gets getNextKeyword (\mathcal{K}) $\;
           }
-  $\mathcal{F}_i \gets getNextFile (C) $\;
+ % $\mathcal{F}_i \gets getNextFile (C) $\;
 }
 \Return{$\mathcal{I}$}\;
  \caption{Index Creation}
@@ -146,8 +141,8 @@ search process.
 
 To start the search process, the user first generates a query through a similar process as index creation. 
 Each of the user's specified keywords are used to generate sliding window bloom filters, whose bits are then
-encrypted using the public key $\sigma_{pk}$ of the Pascal Paillier algorithm. 
-Note that this process takes place on the end user's machine. After encryption, 
+encrypted on the end user's machine using the public key $\sigma_{pk}$ of the Pascal Paillier algorithm. 
+After encryption, 
 the query (comprising the encrypted bloom filters) is sent to the cloud for terms matching.
 
 On receiving a query, the CSP matches the incoming query with the index entries of 
@@ -164,7 +159,6 @@ the plaintexts~\cite{pascal}. The sum of the bits will be either $0$,$1$ or $2$ 
 The twos in the decrypted output then represent the matched
 bits and the ones represent the unmatched bits. Then, a similarity score
 can be estimated as the ratio of twos to ones in the decrypted result.
-
 Note that decryption of this result will require users to have the private Pascal 
 Paillier key. Thus, only authorized users who have received the private key from the
 data owner can actually decrypt the results.
@@ -215,17 +209,17 @@ of the bloom filter,
 we will always return a single number back to the client. The client can then
 decompress it to find out the original Paillier sums using the routine
 specified in Algorithm \ref{algo:decomp}. In short, this algorithm works correctly because every
-$\mathcal{BF}_i$ is at most 2 and $ {a}^{n} > 2\sum_{j=0}^{n-1} {a}^{j}$ . This means
-that taking $log_{a} \mathcal{R}_q$ repeatedly will yield the position of the next
+$\mathcal{BF}_i$ is at most 2 and $ {a}^{n} > 2\sum_{j=0}^{n-1} {a}^{j}$ .
+Taking $log_{a} \mathcal{R}_q$ repeatedly yields the position of the next
 bloom filter entry that needs to be incremented.
 
 \begin{algorithm}
-\KwIn{The compressed index sum $\mathcal{R}_q$}
+\KwIn{The compressed index sum $\mathcal{R}_q$ and $a=3$}
 \KwOut{Matched result $\mathcal{M}_q$ comprising a sequence of 0s, 1s and 2s}
  $i \gets 0 $\;
 \While{$\mathcal{R}_q > 0$}{
-  $i \gets \log_3 \mathcal{R}_q$ \;
-  $\mathcal{R}_q \gets \mathcal{R}_q - 3^{i}$ \;
+  $i \gets \log_a \mathcal{R}_q$ \;
+  $\mathcal{R}_q \gets \mathcal{R}_q - a^{i}$ \;
   $\mathcal{M}_q [i] \gets \mathcal{M}_q [i] + 1 $ \;
 }\Return{$\mathcal{M}_q$}\;
  \caption{Index entry decompression}
