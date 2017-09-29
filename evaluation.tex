@@ -1,20 +1,20 @@
 \section{Evaluation}
 \label{sec:eval}
 
-We demonstrate the viability of our proposed scheme using a real cloud environment, Google Cloud.
+We demonstrate the viability of our proposed scheme using Google Cloud.
 We implement an indexing service, a search service and a
-client application as standard Java services. The search service was deployed
+client application as standard Java services. We deploy the search service 
 on Google App Engine configured as an F4 class instance with a 2.4 GHz CPU and 512
-MB of RAM. We utilized Google Blobstore for hosting index files because
-it allows us to store and retrieve the complete index file efficiently.
+MB of RAM. We utilize Google Blobstore for hosting index files because
+it allows us to store and retrieve the complete index files efficiently.
 %This is in contrast to Google Datastore whose
 %entities can hold only a few bytes of data. As a result, when index entries increase,
 %read/write operations on index entries in the Datastore become more costly.
 We evaluate the results of our approach on a dataset of 150 documents. 
 These documents range in size from 5 MB to 100 MB, containing from 5000 to
-129,000 keywords. The keywords were chosen to be at least 8 characters in
-length and Porter stemming~\cite{porter} was applied to those keywords.
-The client was a Lenovo Thinkpad 430 with a 2.6 GHz Intel Core(TM) i5-332M
+129,000 keywords. The keywords are chosen to be at least 8 characters in
+length and Porter stemming~\cite{porter} is applied to those keywords.
+The client is a Lenovo Thinkpad 430 with a 2.6 GHz Intel Core(TM) i5-332M
 CPU and 8 GB of RAM.
 
 %\subsection{Indexing Performance}
@@ -42,47 +42,46 @@ CPU and 8 GB of RAM.
 
 \subsection{Search Performance}
 
-Search performance is evaluated in terms of data returned by a query, response
-time, CPU cycles used to process a search request and the cost(\$) CSP will
-charge for search queries. 
 For private term matching and data returned, our implementation demonstrates
-that by using our compression algorithm, data returned to the client
-is 95\% less than traditional approaches and remains constant even when the size
+that our compression algorithm results in 95\% less data returned to the client
+compared to traditional approaches, and remains constant even when the size
 of the bloom filter increases. This is shown in Figure \ref{fig:compress}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=3.3in]{figures/comp_compare.png}
+  \vspace{-10px}
   \caption{Data returned by a search query: compressed vs uncompressed results}
+  \vspace{-5px}
+
   \label{fig:compress}
 \end{figure}
 
-We also measure the time it takes to extract the matching bloom filter values
-from the compressed responses.
-Table \ref{tab:search_response_time} show the results. As expected,
-the extraction time increases linearly with the keyword count
-on the server. The reason is that we add more keywords
-keywords by adding more documents to the dataset and each document
-has its own bloom filter index associated with it.
+%We also measure the time it takes to extract the matching bloom filter values
+%from the compressed responses.
+%Table \ref{tab:search_response_time} show the results. As expected,
+%the extraction time increases linearly with the keyword count
+%on the server. 
 
-\begin{table}[th!]
-\centering
-\caption{Response time increases linearly with keyword count.}
-\label{tab:search_response_time}
-\begin{tabular}{| c | c | }
-\hline
-Keyword Count & Response Extraction Time (ms) \\
-\hline
-500  &  60 \\
-1000 &  125 \\
-1500 &  185 \\
-2000 &  250 \\
-2500 &  310 \\
-3000 &  370 \\
-\hline
-\end{tabular}
-\end{table}
-
+%\begin{table}[th!]
+%\centering
+%\caption{Response time increases linearly with keyword count.}
+%\label{tab:search_response_time}
+%\begin{tabular}{| c | c | }
+%\hline
+%Keyword Count & Response Extraction Time (ms) \\
+%\hline
+%500  &  60 \\
+%1000 &  125 \\
+%1500 &  185 \\
+%2000 &  250 \\
+%2500 &  310 \\
+%3000 &  370 \\
+%\hline
+%\end{tabular}
+%\vspace{-8px}
+%
+%\end{table}
 
 \subsection{Cost Estimation and Response Times}
 
@@ -102,7 +101,9 @@ decrypted at the cloud or by any other untrusted system.
 
 \begin{figure}
   \centering
-  \includegraphics[width=3.3in]{figures/cost_keywords_graph.png}
+  \includegraphics[width=3.1in]{figures/cost_keywords_graph.png}
+  \vspace{-10px}
   \caption{Search Cost(\$) with Single Keyword Query}
+  \vspace{-10px}
   \label{fig:cost_single_query}
 \end{figure}

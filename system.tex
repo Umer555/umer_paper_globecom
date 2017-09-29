@@ -3,6 +3,7 @@
 
 \begin{table*}[!htbp]
 \caption{ Notations used in mathematical and descriptive details  }
+\vspace{-15px}
 \label{tab:notations}
 \begin{center}\begin{tabular}{{ |l |l |l }}
     \hline
@@ -21,10 +22,6 @@ of list of keywords from data \\\hline
     encryption and decryption functions \\\hline
 \vspace*{\fill} \centering $\sigma_{pk}$ , $\sigma_{sk}$ & Homomorphic
     encryption public and private keys \\\hline
-\vspace*{\fill} \centering$\mathcal{K}_S$ & Symmetric encryption and
-    decryption keys. It is used to encrypt the data file. \\\hline
-\vspace*{\fill} \centering$\mathcal{S}_q$ & Similarity score of a query
-\\\hline
 \vspace*{\fill} \centering$\mathcal{R}_q$ & Compressed resultant term after bloom filter matching
 \\\hline
 \vspace*{\fill} \centering$\mathcal{M}_q$ & Uncompressed resultant term after bloom filter matching
@@ -39,9 +36,8 @@ of list of keywords from data \\\hline
 \end{table*}
 
 
-Before diving into a description of how the system
-is designed and implemented, we discuss some of our assumptions
-about the system and the threat model. Then we will describe the main
+We first discuss some of our assumptions
+about the system and the threat model. Then we describe the main
 steps involved in the initial index generation
 and then the actual search process over encrypted data.
 
@@ -97,7 +93,7 @@ independently mapped to the bloom filter. This filter enables us to achieve
 \KwIn{A collection of text files $C = \langle \mathcal{F}_1, \mathcal{F}_2, \ldots,
 \mathcal{F}_n \rangle$}
 \KwOut{Index files $I = \langle \mathcal{I}_1, \mathcal{I}_2, \ldots,
-\mathcal{I}_n \rangle$ for each text file  in $C$}
+\mathcal{I}_n \rangle$ for each file in $C$}
 $ \forall \mathcal{F}_i \in \langle \mathcal{F}_1, \mathcal{F}_2, \ldots,
 \mathcal{F}_n \rangle$\;
 \While{$\mathcal{F}_i \in  C $}{
@@ -138,8 +134,8 @@ the structure:
   \label{eq: indexEntry}
 \end{equation} 
 
-where $\mathcal{O}_b$ is the number of 1's in the bloom filter
-$\mathcal{BF}_i$ and $\mathcal{BF}_i$ is consisting of n bits
+where $\mathcal{O}_b$ is the number of 1's in 
+$\mathcal{BF}_i$ and 
 $\mathcal{BF}_i= \mathcal{BF}_1,\mathcal{BF}_2, \ldots ,\mathcal{BF}_n$.
 
 Once the encrypted index file has been generated, it is uploaded to the cloud along with the data files.
@@ -178,7 +174,7 @@ data owner can actually decrypt the results.
 Once the encrypted index entries and the query have been multiplied together, 
 we can simply return these products back to the client. The client can then decrypt the products to get the
 sums and compute similarity scores. While this straightforward approach works and
-is used by many existing systems (for example, in ~\cite{zeehan}), it is extremely
+is used by many existing systems (for example, by \cite{zeehan}), it is extremely
 inefficient.
 In particular, if there are many documents and keywords in the cloud dataset, this
 will result in a huge amount of data to be communicated back to the user. Specifically,
@@ -202,15 +198,12 @@ the polynomial $\mathcal{P}$ and $\mathcal{BF}_i \in \langle 0,1,2 \rangle $. We
 used ${a}=3$ as it yields smaller sums and less computaion.
 
 The sum of this polynomial $\mathcal{P}$ is the resultant compressed term which we return back
-to client application:
-
-\begin{equation}
-\mathcal{R}_q = \sum_{i=0}^{n-1} {a}^{i}\cdot\mathcal{BF}_i
-\label{eq:compressed}
-\end{equation}
-
-From \eqref{eq:compressed} we get a single compressed term $\mathcal{R}_q$
-whose size is the size of the Pascal Paillier key. 
+to the client:
+$
+\mathcal{R}_q = \sum_{i=0}^{n-1} {a}^{i}\cdot\mathcal{BF}_{i+1}
+$.
+The size of this single compressed term $\mathcal{R}_q$
+is equal to the size of the Pascal Paillier key. 
 This multiplication by constants and addition is again possible 
 because our bloom filter entries are encrypted using Pascal Paillier homomorphic
 encryption. Therefore, if after decryption, we want the product of the plaintext with a constant, we
@@ -236,8 +229,11 @@ $i \gets 0 $\;
   $\mathcal{M}_q [i] \gets \mathcal{M}_q [i] + 1 $ \;
 }\Return{$\mathcal{M}_q$}\;
  \caption{Index entry decompression}
+  \vspace{-3px}
+
  \label{algo:decomp}
 \end{algorithm}
+
 
 The savings achieved using this algorithm can be evaluated using a simple theoretical
 formulation. Suppose we use a 32-bit bloom filter and a 64-bit Pascal Paillier key.
