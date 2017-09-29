@@ -1,48 +1,49 @@
-This is BibTeX, Version 0.99d (TeX Live 2015)
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: siggraph14-ias.aux
 The style file: IEEEbib.bst
 Database file #1: ias.bib
+Warning--empty year in song
 Warning--can't use both volume and number fields in tu2013processing
 You've used 16 entries,
             1838 wiz_defined-function locations,
-            680 strings with 8388 characters,
-and the built_in function-call counts, 4488 in all, are:
-= -- 438
-> -- 156
-< -- 11
-+ -- 59
-- -- 43
-* -- 282
-:= -- 627
-add.period$ -- 24
+            674 strings with 8438 characters,
+and the built_in function-call counts, 3781 in all, are:
+= -- 327
+> -- 173
+< -- 5
++ -- 64
+- -- 48
+* -- 263
+:= -- 578
+add.period$ -- 23
 call.type$ -- 16
-change.case$ -- 15
+change.case$ -- 16
 chr.to.int$ -- 0
-cite$ -- 17
-duplicate$ -- 233
-empty$ -- 453
-format.name$ -- 43
-if$ -- 1090
+cite$ -- 18
+duplicate$ -- 188
+empty$ -- 405
+format.name$ -- 48
+if$ -- 883
 int.to.chr$ -- 0
 int.to.str$ -- 16
 missing$ -- 14
-newline$ -- 80
+newline$ -- 81
 num.names$ -- 16
-pop$ -- 78
+pop$ -- 80
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 148
+skip$ -- 76
 stack$ -- 0
-substring$ -- 267
-swap$ -- 105
-text.length$ -- 11
+substring$ -- 155
+swap$ -- 56
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 44
+warning$ -- 2
+while$ -- 30
 width$ -- 18
-write$ -- 182
-(There was 1 warning)
+write$ -- 176
+(There were 2 warnings)

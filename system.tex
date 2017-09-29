@@ -86,11 +86,12 @@ homomorphic encryption algorithm~\cite{pascal}.
 
 The sliding window bloom filter (SWBF) is a special type of bloom filter
 for which a window size is defined, and based on that
-window size, a keyword is mapped to the bloom filter. For example, suppose we have a word
-\emph{cloud} and a window size of 2. Now \emph{cloud} will be sliced into
-\emph{cl}, \emph{lo}, \emph{ou}, and \emph{ud} and each of these slices will be 
+window size, a keyword is sliced and mapped to the bloom filter. For example,
+suppose we have a word ``cloud" and a window size of 2. The word will then be
+sliced into ``cl", ``lo", ``ou", and ``ud" and each of these slices will be 
 independently mapped to the bloom filter. This filter enables us to achieve
- a high matching score even if the requested keyword does not match completely.
+ a partial matching even if the requested keyword does not match
+ completely.
 
 \begin{algorithm}[b!]
 \KwIn{A collection of text files $C = \langle \mathcal{F}_1, \mathcal{F}_2, \ldots,
@@ -103,14 +104,14 @@ $ \forall \mathcal{F}_i \in \langle \mathcal{F}_1, \mathcal{F}_2, \ldots,
   $\mathcal{K}\omega \gets extractAllKeywords (\mathcal{F}_i)$\;
   $\forall k\omega_j \in \mathcal{K}\omega $\;
           \While{$k\omega_j \in \mathcal{K}\omega$}{
-            $SBF \gets createSWBF (k\omega_j)$\;
+            $SWBF \gets createSWBF (k\omega_j)$\;
             $f_j \gets getKeywordFrequency (k\omega_j) $\;
                 $\mathcal{O}_b \gets getOnes (\mathcal{BF}_j) $\;
-            $\forall bf_k \in SBF $\;
-                \While{$bf_k \in SBF$}{
+            $\forall bf_k \in SWBF $\;
+                \While{$bf_k \in SWBF$}{
                         $\mathcal{BF}_k \gets \mathcal{E}_h (\sigma_{pk}, bf_k) $\;
                         $IndexEntry \gets IndexEntry,\mathcal{BF}_k $\;
-                        $bf_k \gets getNextBit (SBF) $\;
+                        $bf_k \gets getNextBit (SWBF) $\;
                 }
                 $IndexEntry \gets IndexEntry,f_j, \mathcal{O}_b $\;
                 $\mathcal{I}_j \gets writeToIndexFile (IndexEntry) $\;
@@ -133,11 +134,13 @@ the index entry along with frequency and number of 1 bits.
 At the end of this process, each index entry $\mathcal{I}_i$ in an index file $\mathcal{I}$ has
 the structure: 
 \begin{equation}
-\mathcal{I}_i = \mathcal{BF}_1,\mathcal{BF}_2, \ldots ,\mathcal{BF}_n, f\omega,
-\mathcal{O}_b
+\mathcal{I}_i = \mathcal{BF}_i, f\omega,\mathcal{O}_b
   \label{eq: indexEntry}
 \end{equation} 
-where $\mathcal{O}_b$ is the number of 1's in the bloom filter.
+
+where $\mathcal{O}_b$ is the number of 1's in the bloom filter
+$\mathcal{BF}_i$ and $\mathcal{BF}_i$ is consisting of n bits
+$\mathcal{BF}_i= \mathcal{BF}_1,\mathcal{BF}_2, \ldots ,\mathcal{BF}_n$.
 
 Once the encrypted index file has been generated, it is uploaded to the cloud along with the data files.
 The data files are encrypted using a symmetric encryption algorithm, as they will not be used during the
@@ -172,22 +175,22 @@ data owner can actually decrypt the results.
 
 \subsection{Compressing Search Results}
 
-Once the encrypted index entries and query have been added together, 
-we can simply return the sums back to the client. The client can then decrypt the
+Once the encrypted index entries and the query have been multiplied together, 
+we can simply return these products back to the client. The client can then decrypt the products to get the
 sums and compute similarity scores. While this straightforward approach works and
 is used by many existing systems (for example, in ~\cite{zeehan}), it is extremely
 inefficient.
 In particular, if there are many documents and keywords in the cloud dataset, this
-will result in a huge amount of data to be communicated back to the user. In quantitative terms,
-the summed index entry for \textit{every} keyword in the dataset will be returned
+will result in a huge amount of data to be communicated back to the user. Specifically,
+the product of the query and the encrypted index entry for \textit{every} keyword in the dataset will be returned
 to the client. This will not only increase the response time over the network, but
 also the cost of cloud computing for the data owner, since network usage is billed
 by most cloud service providers.
 
-In order to reduce this communication cost overhead, we devised a method by which
+In order to reduce this communication cost overhead, we devise a method by which
 we are able to reduce this cost by over $95\%$. Based on the insight that each returned
 index entry consists only of $0$s, $1$s or $2$s, we
-define a polynomial $\mathcal{P}$ given by Equation \ref{eq: polynomial}. 
+define a polynomial $\mathcal{P}$ given by \eqref{eq: polynomial}. 
 \begin{equation}
 \mathcal{P} = {a}^0\cdot\mathcal{BF}_1 + {a}^1\cdot\mathcal{BF}_2 +
 {a}^2\cdot\mathcal{BF}_3 + \ldots + {a}^{n-1}\cdot\mathcal{BF}_n
@@ -206,8 +209,8 @@ to client application:
 \label{eq:compressed}
 \end{equation}
 
-From Eq.\ref{eq:compressed} we get a single compressed term $\mathcal{R}_q$ whose size is
-the size of the Pascal Paillier key. 
+From \eqref{eq:compressed} we get a single compressed term $\mathcal{R}_q$
+whose size is the size of the Pascal Paillier key. 
 This multiplication by constants and addition is again possible 
 because our bloom filter entries are encrypted using Pascal Paillier homomorphic
 encryption. Therefore, if after decryption, we want the product of the plaintext with a constant, we
@@ -237,9 +240,9 @@ $i \gets 0 $\;
 \end{algorithm}
 
 The savings achieved using this algorithm can be evaluated using a simple theoretical
-formulation. Suppose we use a 32-bit bloom filter and a $64$-bit Pascal Paillier key.
+formulation. Suppose we use a 32-bit bloom filter and a 64-bit Pascal Paillier key.
 Then for 1000 keywords, the data owner will create an index file with 1000 entries.
-Then the size of the index file will be $32*64*1000/8 = 256KB$. On the other hand,
+Then the size of the index file will be 32*64*1000/8 = 256KB. On the other hand,
 after compression, the number returned per keyword will just have a size equal to the
 size of the Paillier key, namely 64 bits. So the total data returned will be 
-$64*1000/8 = 8KB$, a saving of over 95\%.
+64*1000/8 = 8KB, a saving of over 95\%.
